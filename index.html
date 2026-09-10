@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>远古生命复原实验室</title>
+  <meta name="description" content="远古生物元素与未来科技融合的沉浸式动效网页。">
+  <link rel="preload" href="assets/hero-lab.png" as="image">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="particle-field" aria-hidden="true"></canvas>
+  <canvas id="three-biosphere" data-three-scene aria-hidden="true"></canvas>
+  <div class="transition-gate" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <header class="topbar" aria-label="实验室状态栏">
+    <button class="brand" type="button" data-view-target="home" aria-label="进入主展厅界面">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>BioGenesis-09</span>
+    </button>
+    <nav class="nav-links" aria-label="页面导航">
+      <button type="button" class="is-active" data-view-target="home" aria-current="page">主展厅</button>
+      <button type="button" data-view-target="giants">巨兽轮播</button>
+      <button type="button" data-view-target="genome">基因工坊</button>
+      <button type="button" data-view-target="habitat">生态模拟</button>
+      <button type="button" data-view-target="timeline">时间裂隙</button>
+      <button type="button" data-view-target="command">控制甲板</button>
+      <button type="button" data-view-target="archive">化石档案</button>
+      <button type="button" data-view-target="signal">神经接口</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero view-panel is-active" id="exhibit" data-view-panel="home" aria-labelledby="hero-title">
+      <div class="hero-visual" data-parallax>
+        <div class="scan-plane" aria-hidden="true"></div>
+        <div class="holo-ring ring-one" aria-hidden="true"></div>
+        <div class="holo-ring ring-two" aria-hidden="true"></div>
+        <div class="specimen-tag tag-amber" aria-hidden="true">
+          <span>琥珀舱</span>
+          <strong>AMBER 41%</strong>
+        </div>
+        <div class="specimen-tag tag-ammonite" aria-hidden="true">
+          <span>菊石螺旋</span>
+          <strong>SCAN OK</strong>
+        </div>
+      </div>
+
+      <div class="hero-copy">
+        <p class="eyebrow">Holographic Paleobio Lab</p>
+        <h1 id="hero-title">
+          <span>远古生命复原</span>
+          <span>实验室</span>
+        </h1>
+        <p class="lead">
+          在未来展厅中重建恐龙骨架、琥珀样本与深时化石，让三叠纪到白垩纪的生命信号在全息扫描中重新发光。
+        </p>
+        <div class="hero-actions" aria-label="核心实验状态">
+          <span class="status-dot"></span>
+          <span>量子复原序列运行中</span>
+        </div>
+        <div class="portal-grid" aria-label="快速跳转界面">
+          <button type="button" class="portal-card" data-view-target="genome">
+            <span>01</span>
+            <strong>基因工坊</strong>
+            <small>编辑骨骼、皮肤与神经参数</small>
+          </button>
+          <button type="button" class="portal-card" data-view-target="habitat">
+            <span>02</span>
+            <strong>生态模拟</strong>
+            <small>观察古环境能量链路</small>
+          </button>
+          <button type="button" class="portal-card" data-view-target="timeline">
+            <span>03</span>
+            <strong>时间裂隙</strong>
+            <small>穿梭寒武纪到白垩纪</small>
+          </button>
+          <button type="button" class="portal-card" data-view-target="command">
+            <span>04</span>
+            <strong>控制甲板</strong>
+            <small>调度扫描、孵化与安全协议</small>
+          </button>
+        </div>
+      </div>
+
+      <aside class="console-panel" id="telemetry" aria-label="复原参数面板">
+        <div class="panel-head">
+          <span>Reconstruction Console</span>
+          <span class="live-chip">LIVE</span>
+        </div>
+        <dl class="metric-grid">
+          <div>
+            <dt>骨骼匹配</dt>
+            <dd><span data-metric="match">97.4</span>%</dd>
+          </div>
+          <div>
+            <dt>神经接口</dt>
+            <dd><span data-metric="neural">62.8</span> Hz</dd>
+          </div>
+          <div>
+            <dt>化石噪声</dt>
+            <dd><span data-metric="noise">03.1</span> dB</dd>
+          </div>
+          <div>
+            <dt>全息扫描</dt>
+            <dd><span data-metric="scan">128</span> 层</dd>
+          </div>
+        </dl>
+      </aside>
+    </section>
+
+    <section class="beast-carousel view-panel" id="giants" data-view-panel="giants" aria-labelledby="giants-title" hidden>
+      <div class="section-heading">
+        <p class="eyebrow">Primeval Giants Rotation</p>
+        <h2 id="giants-title">史前巨兽轮播展</h2>
+      </div>
+
+      <div class="interactive-3d-stage mode-topology" data-model-stage tabindex="0" aria-label="可拖拽旋转的三维全息模型舱">
+        <div class="stage-readout">
+          <span>Interactive Model Bay</span>
+          <strong data-stage-title>霸王龙</strong>
+        </div>
+        <div class="stage-grid-3d" aria-hidden="true"></div>
+        <div class="model-rotor" data-model-rotor>
+          <span class="core-ring ring-a"></span>
+          <span class="core-ring ring-b"></span>
+          <span class="depth-plane plane-a"></span>
+          <span class="depth-plane plane-b"></span>
+          <img class="stage-model-image" data-stage-model src="assets/beast-trex.png" alt="">
+          <span class="anatomy-layer anatomy-skeleton"></span>
+          <span class="anatomy-layer anatomy-muscle"></span>
+          <span class="anatomy-layer anatomy-topology"></span>
+          <span class="rig-line rig-spine"></span>
+          <span class="rig-line rig-neck"></span>
+          <span class="rig-line rig-tail"></span>
+          <span class="rig-line rig-front-limb"></span>
+          <span class="rig-line rig-rear-limb"></span>
+          <span class="surface-facet facet-a"></span>
+          <span class="surface-facet facet-b"></span>
+          <span class="surface-facet facet-c"></span>
+          <span class="surface-facet facet-d"></span>
+          <span class="mesh-node node-a"></span>
+          <span class="mesh-node node-b"></span>
+          <span class="mesh-node node-c"></span>
+          <span class="mesh-node node-d"></span>
+          <span class="mesh-node node-e"></span>
+          <span class="mesh-node node-f"></span>
+          <span class="mesh-node node-g"></span>
+          <span class="mesh-node node-h"></span>
+          <span class="model-core-glow"></span>
+        </div>
+        <div class="model-controls" aria-label="三维模型控制">
+          <button type="button" data-rotate-left aria-label="向左旋转模型">↺</button>
+          <button type="button" data-reset-model aria-label="重置模型视角">⟳</button>
+          <button type="button" data-rotate-right aria-label="向右旋转模型">↻</button>
+          <button type="button" class="mode-chip" data-model-mode="skeleton">骨架</button>
+          <button type="button" class="mode-chip is-active" data-model-mode="topology">拓扑</button>
+          <button type="button" class="mode-chip" data-model-mode="muscle">肌肉</button>
+          <label>
+            <span>扫描强度</span>
+            <input type="range" min="20" max="100" value="64" data-scan-intensity aria-label="扫描强度">
+          </label>
+          <button type="button" class="is-active" data-auto-spin aria-pressed="true">AUTO</button>
+        </div>
+      </div>
+
+      <div class="carousel-shell" data-carousel>
+        <div class="carousel-orbit" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="data-rain" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="beast-track" data-carousel-track aria-live="polite">
+          <article class="beast-slide is-active" data-beast-slide aria-hidden="false">
+            <div class="beast-hologram">
+              <img class="beast-model-image" src="assets/beast-trex.png" alt="" aria-hidden="true">
+              <svg class="beast-lineart" viewBox="0 0 420 230" role="img" aria-label="霸王龙全息线稿">
+                <path d="M38 126 C76 98, 118 88, 170 94 C209 51, 268 47, 334 70 C365 80, 383 99, 378 118 C350 123, 320 118, 287 105 C254 126, 219 135, 179 132 C134 128, 92 140, 44 166" />
+                <path d="M278 77 L386 55 M310 105 L388 129 M171 132 L145 205 M205 132 L229 207 M113 104 L72 58 M118 107 L76 118" />
+                <path d="M310 73 L338 91 L310 100 M340 86 L360 92" />
+              </svg>
+              <span class="energy-beam"></span>
+              <span class="topology-slice"></span>
+              <span class="model-depth"></span>
+            </div>
+            <div class="beast-info">
+              <span class="card-index">G-01</span>
+              <h3>霸王龙</h3>
+              <p>白垩纪顶级掠食者，展舱正在重建咬合力、颅骨震动和步态冲击波。</p>
+              <dl>
+                <div><dt>年代</dt><dd>约 6800 万年前</dd></div>
+                <div><dt>扫描状态</dt><dd>颅骨校准 94%</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <article class="beast-slide" data-beast-slide aria-hidden="true">
+            <div class="beast-hologram amber-mode">
+              <img class="beast-model-image" src="assets/beast-mammoth.png" alt="" aria-hidden="true">
+              <svg class="beast-lineart" viewBox="0 0 420 230" role="img" aria-label="猛犸象全息线稿">
+                <path d="M70 126 C78 76, 126 50, 204 55 C288 60, 344 96, 344 145 C318 166, 269 168, 207 160 C146 153, 98 160, 70 126 Z" />
+                <path d="M322 104 C373 106, 390 139, 360 178 C348 195, 334 203, 325 196 C350 163, 348 132, 322 104 Z" />
+                <path d="M108 153 L96 215 M167 158 L160 218 M254 160 L263 218 M311 154 L330 215" />
+                <path d="M142 62 C150 36, 181 26, 209 56 M245 60 C265 31, 300 36, 311 80" />
+              </svg>
+              <span class="energy-beam"></span>
+              <span class="topology-slice"></span>
+              <span class="model-depth"></span>
+            </div>
+            <div class="beast-info">
+              <span class="card-index">G-02</span>
+              <h3>猛犸象</h3>
+              <p>冰原巨兽样本被置入琥珀色温控光场，长牙曲率用于推演迁徙路径。</p>
+              <dl>
+                <div><dt>年代</dt><dd>约 1 万年前</dd></div>
+                <div><dt>扫描状态</dt><dd>牙釉层读取 88%</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <article class="beast-slide" data-beast-slide aria-hidden="true">
+            <div class="beast-hologram ocean-mode">
+              <img class="beast-model-image" src="assets/beast-mosasaurus.png" alt="" aria-hidden="true">
+              <svg class="beast-lineart" viewBox="0 0 420 230" role="img" aria-label="沧龙全息线稿">
+                <path d="M42 118 C102 74, 190 64, 274 93 C328 111, 370 141, 397 170 C342 166, 297 151, 247 129 C180 153, 112 147, 42 118 Z" />
+                <path d="M248 128 L205 204 M205 111 L158 49 M313 112 L356 72 M318 140 L365 189" />
+                <path d="M78 117 C52 97, 35 82, 16 58 M79 118 C51 139, 33 158, 13 190" />
+                <path d="M348 154 C358 144, 357 134, 343 128" />
+              </svg>
+              <span class="energy-beam"></span>
+              <span class="topology-slice"></span>
+              <span class="model-depth"></span>
+            </div>
+            <div class="beast-info">
+              <span class="card-index">G-03</span>
+              <h3>沧龙</h3>
+              <p>远古海洋捕食者的身体波形被转成蓝色声纳，模拟深海追猎轨迹。</p>
+              <dl>
+                <div><dt>年代</dt><dd>约 7200 万年前</dd></div>
+                <div><dt>扫描状态</dt><dd>声纳骨架 91%</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <article class="beast-slide" data-beast-slide aria-hidden="true">
+            <div class="beast-hologram sky-mode">
+              <img class="beast-model-image" src="assets/beast-pterosaur.png" alt="" aria-hidden="true">
+              <svg class="beast-lineart" viewBox="0 0 420 230" role="img" aria-label="风神翼龙全息线稿">
+                <path d="M204 105 L40 42 L158 139 L204 118 L260 139 L384 42 L224 105" />
+                <path d="M204 105 L214 178 M214 178 L196 212 M214 178 L239 211" />
+                <path d="M224 105 C262 78, 305 69, 346 74 M203 104 C167 78, 124 69, 83 74" />
+                <path d="M216 94 L259 58 L235 98 M214 94 L180 53" />
+              </svg>
+              <span class="energy-beam"></span>
+              <span class="topology-slice"></span>
+              <span class="model-depth"></span>
+            </div>
+            <div class="beast-info">
+              <span class="card-index">G-04</span>
+              <h3>风神翼龙</h3>
+              <p>翼展数据悬浮在高空风洞界面中，追踪骨骼轻量化和滑翔姿态。</p>
+              <dl>
+                <div><dt>年代</dt><dd>约 6700 万年前</dd></div>
+                <div><dt>扫描状态</dt><dd>翼膜推演 96%</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <article class="beast-slide" data-beast-slide aria-hidden="true">
+            <div class="beast-hologram">
+              <img class="beast-model-image" src="assets/beast-triceratops.png" alt="" aria-hidden="true">
+              <span class="energy-beam"></span>
+              <span class="topology-slice"></span>
+              <span class="model-depth"></span>
+            </div>
+            <div class="beast-info">
+              <span class="card-index">G-05</span>
+              <h3>三角龙</h3>
+              <p>头盾与三角结构被拆成骨骼约束、碰撞盒和防御姿态数据，用于重建冲撞行为。</p>
+              <dl>
+                <div><dt>年代</dt><dd>约 6800 万年前</dd></div>
+                <div><dt>扫描状态</dt><dd>头盾拓扑 93%</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <article class="beast-slide" data-beast-slide aria-hidden="true">
+            <div class="beast-hologram amber-mode">
+              <img class="beast-model-image" src="assets/beast-stegosaurus.png" alt="" aria-hidden="true">
+              <span class="energy-beam"></span>
+              <span class="topology-slice"></span>
+              <span class="model-depth"></span>
+            </div>
+            <div class="beast-info">
+              <span class="card-index">G-06</span>
+              <h3>剑龙</h3>
+              <p>背板热量分布、尾刺运动半径和肌肉锚点被投射到模型网格中。</p>
+              <dl>
+                <div><dt>年代</dt><dd>约 1.5 亿年前</dd></div>
+                <div><dt>扫描状态</dt><dd>背板材质 90%</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <article class="beast-slide" data-beast-slide aria-hidden="true">
+            <div class="beast-hologram ocean-mode">
+              <img class="beast-model-image" src="assets/beast-spinosaurus.png" alt="" aria-hidden="true">
+              <span class="energy-beam"></span>
+              <span class="topology-slice"></span>
+              <span class="model-depth"></span>
+            </div>
+            <div class="beast-info">
+              <span class="card-index">G-07</span>
+              <h3>棘龙</h3>
+              <p>帆状脊椎、颌部结构和半水栖运动路径被合成进多层骨骼绑定。</p>
+              <dl>
+                <div><dt>年代</dt><dd>约 9700 万年前</dd></div>
+                <div><dt>扫描状态</dt><dd>脊帆绑定 95%</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <article class="beast-slide" data-beast-slide aria-hidden="true">
+            <div class="beast-hologram ocean-mode">
+              <img class="beast-model-image" src="assets/beast-megalodon.png" alt="" aria-hidden="true">
+              <span class="energy-beam"></span>
+              <span class="topology-slice"></span>
+              <span class="model-depth"></span>
+            </div>
+            <div class="beast-info">
+              <span class="card-index">G-08</span>
+              <h3>巨齿鲨</h3>
+              <p>深海声纳将颌骨、鳍部和尾鳍推进力转换为可旋转的水动力模型。</p>
+              <dl>
+                <div><dt>年代</dt><dd>约 2300 万年前</dd></div>
+                <div><dt>扫描状态</dt><dd>齿列重建 92%</dd></div>
+              </dl>
+            </div>
+          </article>
+        </div>
+
+        <div class="carousel-controls" aria-label="史前巨兽轮播控制">
+          <button type="button" class="carousel-btn" data-carousel-prev aria-label="上一只史前巨兽">‹</button>
+          <div class="carousel-dots" role="tablist" aria-label="选择展览巨兽">
+            <button type="button" class="is-active" data-carousel-dot aria-label="查看霸王龙" aria-selected="true"></button>
+            <button type="button" data-carousel-dot aria-label="查看猛犸象" aria-selected="false"></button>
+            <button type="button" data-carousel-dot aria-label="查看沧龙" aria-selected="false"></button>
+            <button type="button" data-carousel-dot aria-label="查看风神翼龙" aria-selected="false"></button>
+            <button type="button" data-carousel-dot aria-label="查看三角龙" aria-selected="false"></button>
+            <button type="button" data-carousel-dot aria-label="查看剑龙" aria-selected="false"></button>
+            <button type="button" data-carousel-dot aria-label="查看棘龙" aria-selected="false"></button>
+            <button type="button" data-carousel-dot aria-label="查看巨齿鲨" aria-selected="false"></button>
+          </div>
+          <button type="button" class="carousel-btn" data-carousel-next aria-label="下一只史前巨兽">›</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-page genome-page view-panel" id="genome" data-view-panel="genome" aria-labelledby="genome-title" hidden>
+      <div class="section-heading">
+        <p class="eyebrow">Genome Forge</p>
+        <h2 id="genome-title">基因复原工坊</h2>
+      </div>
+      <div class="genome-console">
+        <div class="gene-helix" data-gene-helix aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="gene-controls">
+          <article>
+            <span>DNA-α</span>
+            <h3>骨骼密度</h3>
+            <input type="range" min="0" max="100" value="78" data-gene-slider data-gene-key="skeleton" aria-label="骨骼密度">
+            <output data-gene-value>78</output>
+          </article>
+          <article>
+            <span>SKIN-β</span>
+            <h3>皮肤纹理</h3>
+            <input type="range" min="0" max="100" value="62" data-gene-slider data-gene-key="skin" aria-label="皮肤纹理">
+            <output data-gene-value>62</output>
+          </article>
+          <article>
+            <span>NERVE-γ</span>
+            <h3>神经响应</h3>
+            <input type="range" min="0" max="100" value="84" data-gene-slider data-gene-key="nerve" aria-label="神经响应">
+            <output data-gene-value>84</output>
+          </article>
+          <article>
+            <span>JAW-gamma</span>
+            <h3>颌骨力量</h3>
+            <input type="range" min="0" max="100" value="72" data-gene-slider data-gene-key="jaw" aria-label="颌骨力量">
+            <output data-gene-value>72</output>
+          </article>
+          <article>
+            <span>CREST-delta</span>
+            <h3>角冠发育</h3>
+            <input type="range" min="0" max="100" value="36" data-gene-slider data-gene-key="crest" aria-label="角冠发育">
+            <output data-gene-value>36</output>
+          </article>
+          <article>
+            <span>ARMOR-epsilon</span>
+            <h3>装甲鳞甲</h3>
+            <input type="range" min="0" max="100" value="44" data-gene-slider data-gene-key="armor" aria-label="装甲鳞甲">
+            <output data-gene-value>44</output>
+          </article>
+          <article>
+            <span>TAIL-zeta</span>
+            <h3>尾部平衡</h3>
+            <input type="range" min="0" max="100" value="58" data-gene-slider data-gene-key="tail" aria-label="尾部平衡">
+            <output data-gene-value>58</output>
+          </article>
+          <article>
+            <span>SPEED-eta</span>
+            <h3>奔跑神经</h3>
+            <input type="range" min="0" max="100" value="66" data-gene-slider data-gene-key="speed" aria-label="奔跑神经">
+            <output data-gene-value>66</output>
+          </article>
+          <article>
+            <span>AQUA-theta</span>
+            <h3>水生适应</h3>
+            <input type="range" min="0" max="100" value="22" data-gene-slider data-gene-key="aquatic" aria-label="水生适应">
+            <output data-gene-value>22</output>
+          </article>
+          <article>
+            <span>WING-lambda</span>
+            <h3>翼膜指数</h3>
+            <input type="range" min="0" max="100" value="18" data-gene-slider data-gene-key="membrane" aria-label="翼膜指数">
+            <output data-gene-value>18</output>
+          </article>
+        </div>
+        <div class="gene-readout">
+          <strong data-gene-output>REBUILD 75%</strong>
+          <p data-gene-copy>把化石残留、琥珀孢粉和肌腱附着点合成为可预览的生命模型。</p>
+          <div class="gene-tags">
+            <span>骨架映射</span>
+            <span>组织推演</span>
+            <span>行为种子</span>
+          </div>
+        </div>
+        <div class="gene-game" data-gene-game>
+          <div class="gene-model-stage" data-dino-model aria-label="基因调配生成的高精细恐龙模型">
+            <img class="gene-beast-base" data-dino-base-model src="assets/beast-trex.png" alt="" aria-hidden="true">
+            <svg class="gene-tech-overlay" data-gene-tech-overlay viewBox="0 0 720 380" role="img" aria-labelledby="generated-dino-title">
+              <title id="generated-dino-title">基因调配生成恐龙</title>
+              <g data-gene-effect-layer></g>
+            </svg>
+            <div class="model-readouts" aria-label="生成模型读数">
+              <span data-dino-archetype>THEROPOD HYBRID</span>
+              <strong data-dino-name>刃冠暴蜥</strong>
+            </div>
+          </div>
+          <div class="gene-scoreboard">
+            <div class="target-grid" aria-label="调配目标">
+              <button type="button" class="is-selected" data-gene-target="predator">高速捕食者</button>
+              <button type="button" data-gene-target="armored">重甲防御型</button>
+              <button type="button" data-gene-target="aquatic">水陆巨兽</button>
+              <button type="button" data-gene-target="aerial">翼膜猎手</button>
+            </div>
+            <div class="gene-result-grid">
+              <span>稳定度 <strong data-dino-stability>86%</strong></span>
+              <span>危险等级 <strong data-dino-risk>A</strong></span>
+              <span>生态位 <strong data-dino-ecology>林缘伏击</strong></span>
+              <span>目标契合 <strong data-dino-score>82%</strong></span>
+            </div>
+            <div class="lineage-strip" data-dino-lineage>
+              <span>暴龙系</span>
+              <span>角盾系</span>
+              <span>棘帆系</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-page habitat-page view-panel" id="habitat" data-view-panel="habitat" aria-labelledby="habitat-title" hidden>
+      <div class="section-heading">
+        <p class="eyebrow">Paleo Habitat Simulator</p>
+        <h2 id="habitat-title">古生态模拟舱</h2>
+      </div>
+      <div class="habitat-sim">
+        <div class="earth-stage" data-habitat-map data-earth-stage data-scenario="storm" aria-label="可缩放旋转的古地球大陆架生态模拟">
+          <canvas class="earth-canvas" data-earth-canvas width="900" height="620"></canvas>
+          <div class="earth-hud" aria-hidden="true">
+            <span>公开世界地图轮廓 / 古环境复原</span>
+            <strong data-earth-readout>ZOOM 1.00x</strong>
+          </div>
+          <div class="shelf-readout" aria-label="大陆架环境读数">
+            <span>0-200m 浅海大陆架</span>
+            <strong data-shelf-label>特提斯浅海 / 珊瑚礁带</strong>
+          </div>
+          <div class="earth-controls" aria-label="三维地球控制">
+            <button type="button" data-earth-zoom-out aria-label="缩小古地球">−</button>
+            <input type="range" min="70" max="180" value="100" data-earth-zoom aria-label="古地球缩放">
+            <button type="button" data-earth-zoom-in aria-label="放大古地球">+</button>
+            <button type="button" data-earth-reset>重置视角</button>
+          </div>
+        </div>
+        <div class="habitat-panel">
+          <h3 data-habitat-title>白垩纪湿地场景</h3>
+          <p data-habitat-copy>风速、湿度、捕食压力和植物覆盖率会在舱内形成实时能量流，巨兽模型会依据环境参数更新活动轨迹。</p>
+          <div class="habitat-metrics" aria-label="生态模拟参数">
+            <span data-habitat-metric="humidity">湿度 82%</span>
+            <span data-habitat-metric="pressure">捕食压力 47%</span>
+          </div>
+          <div class="scenario-grid">
+            <button type="button" class="is-selected" data-habitat-scenario="storm">暴雨季</button>
+            <button type="button" data-habitat-scenario="ash">火山灰</button>
+            <button type="button" data-habitat-scenario="tide">海侵线</button>
+            <button type="button" data-habitat-scenario="migration">迁徙潮</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-page timeline-page view-panel" id="timeline" data-view-panel="timeline" aria-labelledby="timeline-title" hidden>
+      <div class="section-heading">
+        <p class="eyebrow">Deep Time Corridor</p>
+        <h2 id="timeline-title">时间裂隙走廊</h2>
+      </div>
+      <div class="timeline-lab">
+        <div class="rift-viewer" data-rift-viewer data-active-era="cambrian" aria-live="polite">
+          <span class="rift-ring"></span>
+          <span class="rift-core"></span>
+          <div>
+            <span data-rift-date>5.41 亿年前</span>
+            <strong data-rift-title>寒武纪信号</strong>
+            <p data-rift-copy>三叶虫复眼数据正在投射成早期海洋光场。</p>
+          </div>
+        </div>
+        <div class="timeline-stream">
+        <button type="button" class="timeline-card is-selected" data-timeline-era="cambrian">
+          <span>5.41 亿年前</span>
+          <h3>寒武纪信号</h3>
+          <p>三叶虫复眼数据被投射成早期海洋光场。</p>
+        </button>
+        <button type="button" class="timeline-card" data-timeline-era="jurassic">
+          <span>2.01 亿年前</span>
+          <h3>侏罗纪骨架</h3>
+          <p>大型植食恐龙的步态被送入全息重力井。</p>
+        </button>
+        <button type="button" class="timeline-card" data-timeline-era="cretaceous">
+          <span>6800 万年前</span>
+          <h3>白垩纪追踪</h3>
+          <p>顶级捕食者的颅骨震动进入神经接口。</p>
+        </button>
+        <button type="button" class="timeline-card" data-timeline-era="ice">
+          <span>1 万年前</span>
+          <h3>冰原残响</h3>
+          <p>猛犸象迁徙路线与温控光场同步。</p>
+        </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="lab-page command-page view-panel" id="command" data-view-panel="command" aria-labelledby="command-title" hidden>
+      <div class="section-heading">
+        <p class="eyebrow">Mission Control Deck</p>
+        <h2 id="command-title">复原控制甲板</h2>
+      </div>
+      <div class="command-deck">
+        <article class="command-status">
+          <span>CORE ONLINE</span>
+          <strong data-command-core>09</strong>
+          <p data-command-status>量子孵化阵列稳定，允许开启下一批巨兽复原任务。</p>
+        </article>
+        <div class="command-grid">
+          <button type="button" class="is-selected" data-command-action="scan"><span>扫描阵列</span><strong>READY</strong></button>
+          <button type="button" data-command-action="cooling"><span>冷却塔</span><strong>72%</strong></button>
+          <button type="button" data-command-action="sample"><span>样本锁</span><strong>SEALED</strong></button>
+          <button type="button" data-command-action="shield"><span>安全场</span><strong>ACTIVE</strong></button>
+        </div>
+        <div class="route-board" data-route-board aria-label="任务路线">
+          <span style="--route: 82%"></span>
+          <span style="--route: 58%"></span>
+          <span style="--route: 91%"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="archive view-panel" id="archive" data-view-panel="archive" aria-labelledby="archive-title" hidden>
+      <div class="section-heading">
+        <p class="eyebrow">Specimen Archive</p>
+        <h2 id="archive-title">深时样本库</h2>
+      </div>
+
+      <div class="archive-lab">
+        <div class="specimen-grid">
+          <button type="button" class="specimen-card is-selected" data-archive-card="skeleton">
+            <span class="card-index">01</span>
+            <h3>恐龙骨架</h3>
+            <p>以骨骼拓扑和步态残影进行全息校准，复原大型掠食者的运动轨迹。</p>
+          </button>
+          <button type="button" class="specimen-card" data-archive-card="amber">
+            <span class="card-index">02</span>
+            <h3>琥珀生态舱</h3>
+            <p>封存昆虫翅脉、孢粉与树脂纹理，为古环境模型提供微观证据。</p>
+          </button>
+          <button type="button" class="specimen-card" data-archive-card="ammonite">
+            <span class="card-index">03</span>
+            <h3>菊石螺旋</h3>
+            <p>读取壳体生长线与压力梯度，生成远古海洋的量子声纳剖面。</p>
+          </button>
+          <button type="button" class="specimen-card" data-archive-card="trilobite">
+            <span class="card-index">04</span>
+            <h3>三叶虫矩阵</h3>
+            <p>通过复眼结构映射远古光场，把寒武纪视觉数据转换为数字界面。</p>
+          </button>
+        </div>
+
+        <aside class="archive-preview" data-archive-preview data-active-specimen="skeleton" aria-live="polite">
+          <div class="archive-orbit" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span data-archive-code>ARC-01</span>
+          <h3 data-archive-title>恐龙骨架</h3>
+          <p data-archive-copy>颅骨、脊椎和尾椎被分层投射，步态残影正在生成。</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="signal view-panel" id="signal" data-view-panel="signal" aria-labelledby="signal-title" hidden>
+      <div class="signal-console">
+        <div class="signal-map" data-signal-map data-channel="synapse" aria-label="神经化石节点图">
+          <button type="button" class="signal-node node-synapse is-selected" data-signal-node="synapse" aria-label="突触回放"></button>
+          <button type="button" class="signal-node node-memory" data-signal-node="memory" aria-label="记忆残响"></button>
+          <button type="button" class="signal-node node-motion" data-signal-node="motion" aria-label="运动神经"></button>
+          <button type="button" class="signal-node node-vision" data-signal-node="vision" aria-label="复眼光场"></button>
+          <span class="signal-beam beam-a" aria-hidden="true"></span>
+          <span class="signal-beam beam-b" aria-hidden="true"></span>
+        </div>
+        <div class="signal-copy">
+          <p class="eyebrow">Neural Fossil Interface</p>
+          <h2 id="signal-title">让化石像数据一样呼吸</h2>
+          <p data-signal-copy>
+            全息扫描将骨骼、壳体和琥珀纹理转译为可读信号，控制台持续追踪生命形态、环境压力和遗传残影。
+          </p>
+          <div class="signal-readout">
+            <strong data-signal-title>突触回放</strong>
+            <span data-signal-resonance>62.8 Hz</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/three@0.148.0/build/three.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
